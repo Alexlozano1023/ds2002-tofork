@@ -1,29 +1,25 @@
 # EC2 Bootstrap Script – Lab 8 (DS 2002)
 
-This repository contains a bootstrap script used for automatically configuring an EC2 instance during launch.
+This repository contains a bootstrap script used for automatically configuring an EC2 instance during launch as part of **Lab 8** in DS 2002.
 
-##  File: `bootstrap.sh`
+## 🔧 File: `bootstrap.sh`
 
-### Purpose:
-This script installs and configures the following tools automatically when launching an EC2 instance:
-- `python3`
-- `git`
-- `nginx`
+###  Purpose
+This script bootstraps a new Ubuntu EC2 instance by automatically:
+- Updating the system
+- Installing essential tools:
+  - `python3`
+  - `git`
+  - `nginx`
+- Starting and enabling the nginx web server
 
-###  Key Commands:
-- `apt update && apt upgrade`: Updates the system
-- `apt install`: Installs required tools
-- `systemctl start/enable`: Starts and auto-enables nginx
-
-###  How to Use:
-1. Copy the contents of `bootstrap.sh`
-2. Paste it into the **User data** section when launching an EC2 instance
-3. Ensure port 22 (SSH) and port 80 (HTTP) are open in your security group
-4. After launch, verify installations by connecting via SSH and testing tool availability
-
-###  Verification:
+## 💻Script Breakdown
 ```bash
-python3 --version
-git --version
-curl http://localhost
+#!/bin/bash
+apt update -y
+apt upgrade -y
+apt install -y python3 git nginx
+systemctl start nginx
+systemctl enable nginx
+
 
